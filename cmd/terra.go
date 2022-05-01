@@ -16,48 +16,20 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-	"log"
-	"os"
-	"path"
+	"twig/services/fs"
 
 	"github.com/spf13/cobra"
 )
 
 // plantCmd represents the plant command
 var plantCmd = &cobra.Command{
-	Use:   "plant",
-	Short: "Summon a new seedling",
+	Use:   "terra",
+	Short: "Summon a new terarrium",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("planting the seed....")
-
-		createDataDirectory()
-
-		fmt.Println("succesfully planted your little seedling!")
+		fs.CreateDataDirectory()
 	},
 }
 
-
-func getDataDirectory() string {
-	dirname, err := os.UserHomeDir()
-	
-	if err != nil {
-		log.Fatal( err )
-    }
-	
-	return path.Join(dirname, ".twig-cli")
-}
-
-
-func createDataDirectory() {
-	pathname := getDataDirectory()
-	
-    fmt.Println(pathname)
-
-	if _, err := os.Stat(pathname); os.IsNotExist(err) {
-		os.Mkdir(pathname, os.ModeDir|0755)
-	}
-}
 
 
 func init() {
